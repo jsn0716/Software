@@ -80,11 +80,6 @@ double distsq(const Point &first, const Segment &second);
 double distsq(const Segment &first, const Point &second);
 double distsq(const Point &first, const Point &second);
 
-bool isDegenerate(const Segment &segment);
-bool isDegenerate(const Ray &segment);
-
-double length(const Segment &segment);
-
 double lengthSquared(const Segment &segment);
 
 /**

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "software/new_geom/point.h"
+#include "software/new_geom/util/distance.h"
 
 // This is a direct copy of geom/segment.h, this is needed to unblock work on the new_geom
 // shape hierarchy.
@@ -68,6 +69,16 @@ class Segment final
     inline double slope() const
     {
         return (end.y() - start.y()) / (end.x() - start.x());
+    }
+
+    inline bool isDegenerate() const
+    {
+        return length() < GeomConstants::EPSILON;
+    }
+
+    inline double length()
+    {
+        return distance(start, end);
     }
 
     inline bool operator==(const Segment& other) const

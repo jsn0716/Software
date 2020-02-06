@@ -100,7 +100,7 @@ double distsq(const Point &first, const Segment &second)
 
     if (s_vec2.dot(relsecond_s) > 0 && second.reverse().toVector().dot(relsecond_e) > 0)
     {
-        if (isDegenerate(second))
+        if (second.isDegenerate())
         {
             return relsecond_s.length();
         }
@@ -122,11 +122,6 @@ double distsq(const Segment &first, const Point &second)
 double distsq(const Point &first, const Point &second)
 {
     return (first - second).lengthSquared();
-}
-
-bool isDegenerate(const Segment &segment)
-{
-    return distsq(segment.getSegStart(), segment.getEnd()) < EPS2;
 }
 
 double length(const Segment &segment)
@@ -210,7 +205,7 @@ bool intersects(const Triangle &first, const Circle &second)
 {
     std::vector<Segment> firstSegments = first.getSegments();
 
-    return contains(first, second.getOrigin()) ||
+    return first.contains(second.getOrigin()) ||
            dist(firstSegments[0], second.getOrigin()) < second.getRadius() ||
            dist(firstSegments[1], second.getOrigin()) < second.getRadius() ||
            dist(firstSegments[2], second.getOrigin()) < second.getRadius();
@@ -1241,19 +1236,6 @@ std::vector<Segment> combineToParallelSegments(std::vector<Segment> segments,
 
     return unique_segments;
 }
-
-int calcBinaryTrespassScore(const Rectangle &rectangle, const Point &point)
-{
-    if (rectangle.contains(point))
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
 
 std::vector<Circle> findOpenCircles(Rectangle bounding_box, std::vector<Point> points)
 {

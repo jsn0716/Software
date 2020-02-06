@@ -9,7 +9,11 @@ cc_library(
 cc_library(
     name = "segment",
     hdrs = ["segment.h"],
-    deps = [":point"],
+    deps = [
+        ":geom_constants",
+        ":point",
+        "//software/new_geom/util:distance",
+    ],
 )
 
 cc_library(
