@@ -177,6 +177,7 @@ void SimulatedTestFixture::runTest(
 {
     std::shared_ptr<Simulator> simulator(
         std::make_shared<Simulator>(field, thunderbots_config->getSimulatorConfig()));
+    //simulator->resetCurrentFirmwareTime();
     simulator->setBallState(ball);
     simulator->addYellowRobots(friendly_robots);
     simulator->addBlueRobots(enemy_robots);
@@ -208,7 +209,7 @@ void SimulatedTestFixture::runTest(
     const Duration simulation_time_step =
         Duration::fromSeconds(1.0 / SIMULATED_CAMERA_FPS);
     const Duration ai_time_step = Duration::fromSeconds(simulation_time_step.toSeconds() *
-                                                        CAMERA_FRAMES_PER_AI_TICK);
+                                                        CAMERA_FRAMES_PER_AI_TICK * 2);
 
     // Tick one frame to aid with visualization
     bool validation_functions_done =

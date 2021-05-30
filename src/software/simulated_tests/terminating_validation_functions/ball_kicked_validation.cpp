@@ -12,4 +12,5 @@ void ballKicked(Angle angle, std::shared_ptr<World> world_ptr,
         ss << angle;
         yield("Ball was not kicked at the angle " + ss.str());
     }
+    std::cout << "BALL BEEN KICKED" << std::endl;
 }

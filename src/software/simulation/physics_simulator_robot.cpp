@@ -108,6 +108,7 @@ float PhysicsSimulatorRobot::getBatteryVoltage()
 void PhysicsSimulatorRobot::kick(float speed_m_per_s)
 {
     checkValidAndExecuteVoid([this, speed_m_per_s](auto robot) {
+        std::cout << "KICKING" << std::endl;
         if (ball_in_dribbler_area && ball_in_dribbler_area->can_be_controlled)
         {
             auto ball = ball_in_dribbler_area->ball;
@@ -164,6 +165,7 @@ void PhysicsSimulatorRobot::kick(float speed_m_per_s)
 void PhysicsSimulatorRobot::chip(float distance_m)
 {
     checkValidAndExecuteVoid([this, distance_m](auto robot) {
+        std::cout << "CHIPPING" << std::endl;
         if (ball_in_dribbler_area && ball_in_dribbler_area->can_be_controlled)
         {
             auto ball        = ball_in_dribbler_area->ball;
@@ -340,6 +342,7 @@ void PhysicsSimulatorRobot::brakeMotorFrontRight()
 void PhysicsSimulatorRobot::onDribblerBallContact(PhysicsRobot *physics_robot,
                                                   PhysicsBall *physics_ball)
 {
+    std::cout << "onDribblerBallContact" << std::endl;
     if (dribbler_rpm > 0 && ball_in_dribbler_area)
     {
         if (ball_in_dribbler_area->ball != physics_ball)
@@ -360,6 +363,7 @@ void PhysicsSimulatorRobot::onDribblerBallStartContact(PhysicsRobot *physics_rob
     // Damp the ball when it collides with the dribbler. We damp each component
     // of the ball's momentum separately so we have the flexibility to tune this
     // behavior to match real life.
+    std::cout << "onDribblerBallStartContact" << std::endl;
     Vector ball_momentum       = physics_ball->momentum();
     Vector robot_facing_vector = Vector::createFromAngle(physics_robot->orientation());
     Vector robot_perp_vector   = robot_facing_vector.perpendicular();
@@ -398,6 +402,7 @@ void PhysicsSimulatorRobot::onDribblerBallStartContact(PhysicsRobot *physics_rob
 void PhysicsSimulatorRobot::onDribblerBallEndContact(PhysicsRobot *physics_robot,
                                                      PhysicsBall *physics_ball)
 {
+    std::cout << "onDribblerBallEndContact" << std::endl;
     clearBallInDribblerArea();
 }
 

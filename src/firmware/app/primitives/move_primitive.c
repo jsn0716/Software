@@ -120,6 +120,7 @@ void app_move_primitive_start(TbotsProto_MovePrimitive prim_msg, void* void_stat
     //       tracking the trajectory, and so what it to be as close as possible to
     //       the time that we actually start _executing_ the trajectory
     state->primitive_start_time_seconds = app_firmware_world_getCurrentTime(world);
+    //printf("Initial time: %f\n", state->primitive_start_time_seconds);
     state->max_speed_m_per_s            = max_speed_m_per_s;
 }
 
@@ -133,10 +134,11 @@ static void app_move_primitive_tick(void* void_state_ptr, FirmwareWorld_t* world
     const float current_time = app_firmware_world_getCurrentTime(world);
     while (trajectory_index < state->num_trajectory_elems - 1 &&
            state->position_trajectory.time_profile[trajectory_index - 1] <
-               current_time - state->primitive_start_time_seconds)
+               current_time - state->primitive_start_time_seconds) // - state->primitive_start_time_seconds
     {
         trajectory_index++;
     }
+    //printf("Current time: %f, Index: %ld, Profile: %f\n", current_time, trajectory_index, state->position_trajectory.time_profile[trajectory_index]);
 
     app_firmware_robot_followPosTrajectory(robot, state->position_trajectory,
                                            state->num_trajectory_elems, trajectory_index,
